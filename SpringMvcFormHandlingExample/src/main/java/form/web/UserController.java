@@ -97,14 +97,12 @@ public class UserController {
         User user = new User();
 
         // set default value
-        user.setName("mkyong123");
-        user.setEmail("test@gmail.com");
+        user.setName("Tymur");
+        user.setEmail("template@gmail.com");
         user.setAddress("abc 88");
         user.setNewsletter(true);
         user.setSex("M");
-        user.setFramework(new ArrayList<String>(Arrays.asList("Spring MVC", "GWT")));
-        user.setSkill(new ArrayList<String>(Arrays.asList("Spring", "Grails", "Groovy")));
-        user.setCountry("SG");
+        user.setCountry("UA");
         user.setNumber(2);
         model.addAttribute("userForm", user);
 
@@ -192,8 +190,8 @@ public class UserController {
         Map<String, String> country = new LinkedHashMap<String, String>();
         country.put("US", "United Stated");
         country.put("CN", "China");
-        country.put("SG", "Singapore");
-        country.put("MY", "Malaysia");
+        country.put("UA", "Ukraine");
+        country.put("PL", "Poland");
         model.addAttribute("countryList", country);
 
     }

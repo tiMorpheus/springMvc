@@ -1,96 +1,65 @@
 package form.dao.impl;
 
+import form.dao.AbstractDao;
 import form.dao.UserDao;
 import form.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
-@Repository
-public class UserDaoImpl implements UserDao {
+@Repository("userDao")
+@SuppressWarnings({"unchecked", "rawtypes"})
+public class UserDaoImpl extends AbstractDao implements UserDao {
 
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-	@Autowired
-	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
-		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-	}
 
 	@Override
 	public User findById(Integer id) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
+		Criteria criteria = getSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("id", id));
 
-		String sql = "SELECT * FROM users WHERE id=:id";
-
-		User result = null;
-		try {
-			result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
-		} catch (EmptyResultDataAccessException e) {
-			// do nothing, return null
-		}
-
-		/*
-		 * User result = namedParameterJdbcTemplate.queryForObject( sql, params,
-		 * new BeanPropertyRowMapper<User>());
-		 */
-
-		return result;
-
+		return (User) criteria.uniqueResult();
 	}
 
 	@Override
 	public List<User> findAll() {
 
-		String sql = "SELECT * FROM users";
-		List<User> result = namedParameterJdbcTemplate.query(sql, new UserMapper());
-
-		return result;
+		Criteria criteria = getSession().createCriteria(User.class);
+		return (List<User>) criteria.list();
 
 	}
 
 	@Override
 	public void save(User user) {
-
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
-		String sql = "INSERT INTO USERS(NAME, EMAIL, ADDRESS, PASSWORD, NEWSLETTER, FRAMEWORK, SEX, NUMBER, COUNTRY, SKILL) "
-				+ "VALUES ( :name, :email, :address, :password, :newsletter, :framework, :sex, :number, :country, :skill)";
-
-		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
-		user.setId(keyHolder.getKey().intValue());
+		persist(user);
 		
 	}
 
 	@Override
 	public void update(User user) {
 
-		String sql = "UPDATE USERS SET NAME=:name, EMAIL=:email, ADDRESS=:address, " + "PASSWORD=:password, NEWSLETTER=:newsletter, FRAMEWORK=:framework, "
-				+ "SEX=:sex, NUMBER=:number, COUNTRY=:country, SKILL=:skill WHERE id=:id";
-
-		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
+		getSession().update(user);
 
 	}
 
 	@Override
 	public void delete(Integer id) {
 
-		String sql = "DELETE FROM USERS WHERE id= :id";
-		namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
+		Query query = getSession().createSQLQuery("delete from USERS where id = :id");
+		query.setInteger("id", id);
+		query.executeUpdate();
 
 	}
 
@@ -108,11 +77,11 @@ public class UserDaoImpl implements UserDao {
 		paramSource.addValue("newsletter", user.isNewsletter());
 
 		// join String
-		paramSource.addValue("framework", convertListToDelimitedString(user.getFramework()));
+		//paramSource.addValue("framework", convertListToDelimitedString(user.getFramework()));
 		paramSource.addValue("sex", user.getSex());
 		paramSource.addValue("number", user.getNumber());
 		paramSource.addValue("country", user.getCountry());
-		paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
+		//paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
 
 		return paramSource;
 	}
@@ -124,14 +93,14 @@ public class UserDaoImpl implements UserDao {
 			user.setId(rs.getInt("id"));
 			user.setName(rs.getString("name"));
 			user.setEmail(rs.getString("email"));
-			user.setFramework(convertDelimitedStringToList(rs.getString("framework")));
+			//user.setFramework(convertDelimitedStringToList(rs.getString("framework")));
 			user.setAddress(rs.getString("address"));
 			user.setCountry(rs.getString("country"));
 			user.setNewsletter(rs.getBoolean("newsletter"));
 			user.setNumber(rs.getInt("number"));
 			user.setPassword(rs.getString("password"));
 			user.setSex(rs.getString("sex"));
-			user.setSkill(convertDelimitedStringToList(rs.getString("skill")));
+			//user.setSkill(convertDelimitedStringToList(rs.getString("skill")));
 			return user;
 		}
 	}

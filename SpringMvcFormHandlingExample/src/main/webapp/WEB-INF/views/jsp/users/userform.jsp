@@ -94,7 +94,7 @@
 			<div class="form-group ${status.error ? 'has-error' : ''}">
 				<label class="col-sm-2 control-label">Web Frameworks</label>
 				<div class="col-sm-10">
-					<form:checkboxes path="framework" items="${frameworkList}" element="label class='checkbox-inline'" />
+					<form:radiobutton path="framework" items="${frameworkList}" element="label class='checkbox-inline'" />
 					<br />
 					<form:errors path="framework" class="control-label" />
 				</div>
@@ -158,7 +158,10 @@
 			<div class="form-group ${status.error ? 'has-error' : ''}">
 				<label class="col-sm-2 control-label">Java Skills</label>
 				<div class="col-sm-5">
-					<form:select path="skill" items="${javaSkillList}" multiple="true" size="5" class="form-control" />
+					<form:select path="skill" class="form-control">
+						<form:option value="NONE" label="--- Select ---" />
+						<form:options items="${javaSkillList}" />
+					</form:select>
 					<form:errors path="skill" class="control-label" />
 				</div>
 				<div class="col-sm-5"></div>

@@ -49,15 +49,11 @@ public class UserFormValidator implements Validator {
             errors.rejectValue("country", "NotEmpty.userForm.country");
         }
 
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            errors.rejectValue("confirmPassword", "Diff.userform.confirmPassword");
-        }
-
-        if (user.getFramework() == null || user.getFramework().size() < 2) {
+        if (user.getFramework().equalsIgnoreCase("none")) {
             errors.rejectValue("framework", "Valid.userForm.framework");
         }
 
-        if (user.getSkill() == null || user.getSkill().size() < 3) {
+        if (user.getSkill().equalsIgnoreCase("none")) {
             errors.rejectValue("skill", "Valid.userForm.skill");
         }
 

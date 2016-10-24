@@ -1,44 +1,51 @@
 package form.model;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "users", catalog = "test_db")
 public class User {
 
     // form:hidden - hidden value
+
+    @Id
+    @Column(name = "id", unique = true, nullable = false)
     Integer id;
 
-    // form:input - textbox
+    @Column(name = "name")
     String name;
 
-    // form:input - textbox
+    @Column(name = "email")
     String email;
 
-    // form:textarea - textarea
+    @Column(name = "address")
     String address;
 
-    // form:input - password
+    @Column(name = "password")
     String password;
 
-    // form:input - password
-    String confirmPassword;
-
-    // form:checkbox - single checkbox
     boolean newsletter;
 
-    // form:checkboxes - multiple checkboxes
-    List<String> framework;
+    @Column(name = "framework", length = 500)
+    String framework;
 
-    // form:radiobutton - radio button
+    @Column(name = "sex")
     String sex;
 
-    // form:radiobuttons - radio button
+    @Column(name = "number")
     Integer number;
 
-    // form:select - form:option - dropdown - single select
+    @Column(name = "country")
     String country;
 
-    // form:select - multiple=true - dropdown - multiple select
-    List<String> skill;
+    @Column(name = "skill")
+    String skill;
+
+    public User() {
+    }
 
     public boolean isNew() {
         return (this.id == null);
@@ -84,13 +91,6 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 
     public boolean isNewsletter() {
         return newsletter;
@@ -100,12 +100,20 @@ public class User {
         this.newsletter = newsletter;
     }
 
-    public List<String> getFramework() {
+    public String getFramework() {
         return framework;
     }
 
-    public void setFramework(List<String> framework) {
+    public void setFramework(String framework) {
         this.framework = framework;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
     public String getSex() {
@@ -132,19 +140,5 @@ public class User {
         this.country = country;
     }
 
-    public List<String> getSkill() {
-        return skill;
-    }
 
-    public void setSkill(List<String> skill) {
-        this.skill = skill;
-    }
-
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", address=" + address
-                + ", password=" + password + ", confirmPassword=" + confirmPassword
-                + ", newsletter=" + newsletter + ", framework=" + framework + ", sex=" + sex
-                + ", number=" + number + ", country=" + country + ", skill=" + skill + "]" + isNew();
-    }
 }
