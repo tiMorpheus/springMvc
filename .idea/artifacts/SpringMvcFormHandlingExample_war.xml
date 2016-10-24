@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SpringMvcFormHandlingExample:war">
+    <output-path>$PROJECT_DIR$/SpringMvcFormHandlingExample/target</output-path>
+    <root id="archive" name="SpringMvcFormHandlingExample-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="SpringMvcFormHandlingExample:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="spring3annotationHelloWorld:war">
+    <output-path>$PROJECT_DIR$/spring3annotationHelloWorld/target</output-path>
+    <root id="archive" name="spring3annotationHelloWorld-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="spring3annotationHelloWorld:war exploded" />
+    </root>
+  </artifact>
+</component>
