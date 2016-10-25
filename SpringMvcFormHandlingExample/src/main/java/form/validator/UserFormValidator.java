@@ -49,17 +49,6 @@ public class UserFormValidator implements Validator {
             errors.rejectValue("country", "NotEmpty.userForm.country");
         }
 
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            errors.rejectValue("confirmPassword", "Diff.userform.confirmPassword");
-        }
-
-        if (user.getFramework() == null || user.getFramework().size() < 2) {
-            errors.rejectValue("framework", "Valid.userForm.framework");
-        }
-
-        if (user.getSkill() == null || user.getSkill().size() < 3) {
-            errors.rejectValue("skill", "Valid.userForm.skill");
-        }
 
     }
 }
