@@ -47,6 +47,8 @@ public class UserController {
     public String showAllUsers(Model model) {
 
         logger.debug("showAllUsers()");
+
+
         model.addAttribute("users", userService.findAll());
         return "users/list";
 
@@ -99,11 +101,11 @@ public class UserController {
         // set default value
         user.setName("Tymur");
         user.setEmail("template@gmail.com");
-        user.setAddress("abc 88");
+        user.setAddress("Template address");
         user.setNewsletter(true);
         user.setSex("M");
         user.setCountry("UA");
-        user.setNumber(2);
+        user.setNumber(1);
         model.addAttribute("userForm", user);
 
         populateDefaultModel(model);
@@ -161,23 +163,6 @@ public class UserController {
     }
 
     private void populateDefaultModel(Model model) {
-
-        List<String> frameworksList = new ArrayList<String>();
-        frameworksList.add("Spring MVC");
-        frameworksList.add("Struts 2");
-        frameworksList.add("JSF 2");
-        frameworksList.add("GWT");
-        frameworksList.add("Play");
-        frameworksList.add("Apache Wicket");
-        model.addAttribute("frameworkList", frameworksList);
-
-        Map<String, String> skill = new LinkedHashMap<String, String>();
-        skill.put("Hibernate", "Hibernate");
-        skill.put("Spring", "Spring");
-        skill.put("Struts", "Struts");
-        skill.put("Groovy", "Groovy");
-        skill.put("Grails", "Grails");
-        model.addAttribute("javaSkillList", skill);
 
         List<Integer> numbers = new ArrayList<Integer>();
         numbers.add(1);

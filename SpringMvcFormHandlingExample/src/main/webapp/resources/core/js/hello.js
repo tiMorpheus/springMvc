@@ -15,7 +15,6 @@ function post(path, params, method) {
 			form.appendChild(hiddenField);
 		}
 	}
-
 	document.body.appendChild(form);
 	form.submit();
 }

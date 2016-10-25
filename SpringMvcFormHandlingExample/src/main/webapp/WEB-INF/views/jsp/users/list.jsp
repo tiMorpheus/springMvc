@@ -29,7 +29,7 @@
 					<th>#ID</th>
 					<th>Name</th>
 					<th>Email</th>
-					<th>framework</th>
+					<th>Country</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -41,10 +41,7 @@
 					</td>
 					<td>${user.name}</td>
 					<td>${user.email}</td>
-					<td><c:forEach var="framework" items="${user.framework}" varStatus="loop">
-						${framework}
-    					<c:if test="${not loop.last}">,</c:if>
-						</c:forEach></td>
+					<td>${user.country}</td>
 					<td>
 						<spring:url value="/users/${user.id}" var="userUrl" />
 						<spring:url value="/users/${user.id}/delete" var="deleteUrl" /> 

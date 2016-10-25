@@ -10,12 +10,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -76,12 +73,10 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 		paramSource.addValue("password", user.getPassword());
 		paramSource.addValue("newsletter", user.isNewsletter());
 
-		// join String
-		//paramSource.addValue("framework", convertListToDelimitedString(user.getFramework()));
 		paramSource.addValue("sex", user.getSex());
 		paramSource.addValue("number", user.getNumber());
 		paramSource.addValue("country", user.getCountry());
-		//paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
+
 
 		return paramSource;
 	}
@@ -93,37 +88,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 			user.setId(rs.getInt("id"));
 			user.setName(rs.getString("name"));
 			user.setEmail(rs.getString("email"));
-			//user.setFramework(convertDelimitedStringToList(rs.getString("framework")));
 			user.setAddress(rs.getString("address"));
 			user.setCountry(rs.getString("country"));
 			user.setNewsletter(rs.getBoolean("newsletter"));
 			user.setNumber(rs.getInt("number"));
 			user.setPassword(rs.getString("password"));
 			user.setSex(rs.getString("sex"));
-			//user.setSkill(convertDelimitedStringToList(rs.getString("skill")));
 			return user;
 		}
 	}
 
-	private static List<String> convertDelimitedStringToList(String delimitedString) {
-
-		List<String> result = new ArrayList<String>();
-
-		if (!StringUtils.isEmpty(delimitedString)) {
-			result = Arrays.asList(StringUtils.delimitedListToStringArray(delimitedString, ","));
-		}
-		return result;
-
-	}
-
-	private String convertListToDelimitedString(List<String> list) {
-
-		String result = "";
-		if (list != null) {
-			result = StringUtils.arrayToCommaDelimitedString(list.toArray());
-		}
-		return result;
-
-	}
 
 }

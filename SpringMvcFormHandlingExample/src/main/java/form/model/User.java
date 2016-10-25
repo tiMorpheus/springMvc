@@ -1,17 +1,14 @@
 package form.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users", catalog = "test_db")
 public class User {
 
-    // form:hidden - hidden value
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     Integer id;
 
@@ -27,10 +24,10 @@ public class User {
     @Column(name = "password")
     String password;
 
-    boolean newsletter;
+    @Transient
+    String confirmPassword;
 
-    @Column(name = "framework", length = 500)
-    String framework;
+    boolean newsletter;
 
     @Column(name = "sex")
     String sex;
@@ -41,8 +38,6 @@ public class User {
     @Column(name = "country")
     String country;
 
-    @Column(name = "skill")
-    String skill;
 
     public User() {
     }
@@ -91,29 +86,12 @@ public class User {
         this.password = password;
     }
 
-
     public boolean isNewsletter() {
         return newsletter;
     }
 
     public void setNewsletter(boolean newsletter) {
         this.newsletter = newsletter;
-    }
-
-    public String getFramework() {
-        return framework;
-    }
-
-    public void setFramework(String framework) {
-        this.framework = framework;
-    }
-
-    public String getSkill() {
-        return skill;
-    }
-
-    public void setSkill(String skill) {
-        this.skill = skill;
     }
 
     public String getSex() {
@@ -140,5 +118,11 @@ public class User {
         this.country = country;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 }

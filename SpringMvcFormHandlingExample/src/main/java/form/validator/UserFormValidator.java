@@ -49,13 +49,6 @@ public class UserFormValidator implements Validator {
             errors.rejectValue("country", "NotEmpty.userForm.country");
         }
 
-        if (user.getFramework().equalsIgnoreCase("none")) {
-            errors.rejectValue("framework", "Valid.userForm.framework");
-        }
-
-        if (user.getSkill().equalsIgnoreCase("none")) {
-            errors.rejectValue("skill", "Valid.userForm.skill");
-        }
 
     }
 }
