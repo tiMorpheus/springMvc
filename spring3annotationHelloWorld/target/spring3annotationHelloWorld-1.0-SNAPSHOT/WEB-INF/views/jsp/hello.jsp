@@ -27,6 +27,9 @@
                 Hello ${name}
             </c:if>
 
+            <c:if test="${empty name}">
+                Welcome Welcome!
+            </c:if>
         </p>
         <p>
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
@@ -34,6 +37,38 @@
     </div>
 </div>
 
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>ABC</p>
+            <p>
+                <a class="btn btn-default" href="#" role="button">View details</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>ABC</p>
+            <p>
+                <a class="btn btn-default" href="#" role="button">View details</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>ABC</p>
+            <p>
+                <a class="btn btn-default" href="#" role="button">View details</a>
+            </p>
+        </div>
+    </div>
+
+
+    <hr>
+    <footer>
+        <p>&copy; Mkyong.com 2015</p>
+    </footer>
+</div>
 
 <spring:url value="/resources/core/css/hello.js" var="coreJs" />
 <spring:url value="/resources/core/css/bootstrap.min.js" var="bootstrapJs" />
